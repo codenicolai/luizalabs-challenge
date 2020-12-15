@@ -13,6 +13,7 @@ import { getCharacters } from "api/characters";
 export const List = () => {
   const [page, setPage] = useState(0);
   const [offset, setOffset] = useState(0);
+  const [frase, setFrase] = useState("");
 
   const {
     isLoading,
@@ -21,7 +22,15 @@ export const List = () => {
     data: characters,
     isFetching,
     isPreviousData,
-  } = useQuery(["characters", offset], () => getCharacters(offset), {});
+  } = useQuery(
+    ["characters", offset, frase],
+    () =>
+      getCharacters({
+        frase,
+        offset: frase ? undefined : offset,
+      }),
+    {}
+  );
 
   useEffect(() => {
     if (page) {
@@ -52,7 +61,8 @@ export const List = () => {
           voce ama - e aqueles que voce descobrirá em breve!
         </Text>
       </Flex>
-
+      search:
+      <input onChange={(e) => setFrase(e.target.value)}></input>
       <Flex>
         {isLoading ? (
           <Box>Loading...</Box>
@@ -66,7 +76,6 @@ export const List = () => {
           </Box>
         )}
       </Flex>
-
       <Flex>
         <Text>Current Page: {page + 1}</Text>
         <button
