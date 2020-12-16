@@ -14,6 +14,7 @@ export const List = () => {
   const [page, setPage] = useState(0);
   const [offset, setOffset] = useState(0);
   const [frase, setFrase] = useState("");
+  const [orderBy, setOrderBy] = useState("name");
 
   const {
     isLoading,
@@ -23,11 +24,12 @@ export const List = () => {
     isFetching,
     isPreviousData,
   } = useQuery(
-    ["characters", offset, frase],
+    ["characters", offset, frase, orderBy],
     () =>
       getCharacters({
         frase,
         offset: frase ? undefined : offset,
+        orderBy: orderBy ? "name" : "-name",
       }),
     {}
   );
@@ -63,17 +65,28 @@ export const List = () => {
       </Flex>
       search:
       <input onChange={(e) => setFrase(e.target.value)}></input>
+      <button onClick={() => setOrderBy(!orderBy)}>
+        {orderBy ? "orderByDesc" : "orderByAsc"}
+      </button>
       <Flex>
         {isLoading ? (
           <Box>Loading...</Box>
         ) : isError ? (
           <Box>Error: {error.message}</Box>
         ) : (
-          <Box>
-            {characters.results.map((project) => (
-              <p key={project.id}>{project.name}</p>
+          <Flex justifyContent="center" flex={1} flexWrap="wrap">
+            {characters.results.map((project, i) => (
+              <Box mt="15px" mx="10px">
+                {console.log(project)}
+                <Image
+                  height="200px"
+                  width="200px"
+                  img={`${project.thumbnail.path}.${project.thumbnail.extension}`}
+                />
+                <p key={project.id}>{project.name}</p>
+              </Box>
             ))}
-          </Box>
+          </Flex>
         )}
       </Flex>
       <Flex>
