@@ -1,27 +1,32 @@
 import React from "react";
+import propTypes from "prop-types";
 
 import styled, { css } from "styled-components";
 
 import Flex from "components/Flex";
 import Image from "components/Image";
 
+const InputVariants = {
+  primary: css`
+    background-color: ${(props) => props.theme.colors.pink};
+  `,
+  secondary: css`
+    background-color: ${(props) => props.theme.colors.white};
+  `,
+};
+
 const StyledInput = styled.input`
   height: 30px;
-  background-color: ${(props) =>
-    props.variant === "primary"
-      ? props.theme.colors.pink
-      : props.theme.colors.white};
   border-radius: 100px;
   border: none;
-
   color: ${(props) => props.theme.colors.red};
+  padding-left: ${(props) => (props.icon ? 60 : 40)}px;
+  padding-right: 40px;
+  outline: 0;
 
   ::placeholder {
     color: ${(props) => props.theme.colors.red};
   }
-
-  padding-left: ${(props) => (props.icon ? 60 : 40)}px;
-  padding-right: 40px;
 
   ${({ full }) =>
     full &&
@@ -29,7 +34,7 @@ const StyledInput = styled.input`
       width: 100%;
     `}
 
-  outline: 0;
+  ${(props) => InputVariants[props.variant]}
 `;
 
 export const Input = ({
@@ -61,6 +66,15 @@ export const Input = ({
       ></StyledInput>
     </Flex>
   );
+};
+
+Input.propTypes = {
+  variant: propTypes.string,
+  icon: propTypes.node,
+  onClick: propTypes.func,
+  onChange: propTypes.func,
+  placeholder: propTypes.string,
+  full: propTypes.bool,
 };
 
 Input.defaultProps = {

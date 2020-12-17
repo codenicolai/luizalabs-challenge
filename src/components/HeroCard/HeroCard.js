@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from "prop-types";
 
 import Flex from "components/Flex";
 import Image from "components/Image";
@@ -8,13 +9,7 @@ import Text from "components/Text";
 import heart from "assets/icones/heart/heart.svg";
 import heartFullfilled from "assets/icones/heart/heart-fullfilled.svg";
 
-export const HeroCard = ({
-  onClick,
-  hero,
-  favorite,
-  onClickFavorite,
-  ...props
-}) => {
+export const HeroCard = ({ onClick, hero, favorite, onClickFavorite }) => {
   return (
     <Box my="15px" mx="10px" width="200px" height="250px">
       <Flex flex={1}>
@@ -38,4 +33,11 @@ export const HeroCard = ({
       </Flex>
     </Box>
   );
+};
+
+HeroCard.propTypes = {
+  hero: propTypes.object,
+  onClick: propTypes.func,
+  onClickFavorite: propTypes.func,
+  favorite: propTypes.any,
 };

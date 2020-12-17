@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from "prop-types";
 
 import styled, { css } from "styled-components";
 
@@ -19,4 +20,8 @@ const ImageStyled = styled.img`
 
 export const Image = ({ img, ...props }) => {
   return <ImageStyled src={img} {...props} />;
+};
+
+Image.propTypes = {
+  img: propTypes.node,
 };
