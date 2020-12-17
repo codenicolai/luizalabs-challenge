@@ -16,9 +16,10 @@ export const HeroCard = ({
   ...props
 }) => {
   return (
-    <Box onClick={onClick} my="15px" mx="10px" width="200px" height="250px">
+    <Box my="15px" mx="10px" width="200px" height="250px">
       <Flex flex={1}>
         <Image
+          onClick={onClick}
           height="200px"
           width="200px"
           img={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
@@ -27,7 +28,7 @@ export const HeroCard = ({
       <Flex mt="15px" justifyContent="space-between">
         <Text key={hero.id}>{hero.name}</Text>
         <Image
-          onClick={onClickFavorite}
+          onClick={() => onClickFavorite(hero)}
           src={favorite ? heartFullfilled : heart}
           width="20px"
           height="20px"
