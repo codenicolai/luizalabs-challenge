@@ -11,17 +11,47 @@ import HeroCard from "components/HeroCard";
 
 import logo from "assets/logo/Group.png";
 import heart from "assets/icones/heart/heart.svg";
+import heartFullfilled from "assets/icones/heart/heart-fullfilled.svg";
 import hero from "assets/icones/heroi/hero.svg";
 import search from "assets/busca/Lupa/search.svg";
+import toggleOn from "assets/toggle/toggleOn.svg";
+import toggleOff from "assets/toggle/toggleOff.svg";
 
 import { getCharacters } from "api/characters";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import Loading from "components/Loading";
+import useFavorites from "hooks/useFavorites";
+
+const Button = styled.button`
+  margin-left: 2px;
+  margin-right: 2px;
+  outline: 0;
+  background-color: ${(props) =>
+    props.variant === "contained"
+      ? props.theme.colors.red
+      : props.theme.colors.white};
+  color: ${(props) =>
+    props.variant === "contained"
+      ? props.theme.colors.white
+      : props.theme.colors.red};
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+`;
 
 export const List = () => {
   const [page, setPage] = useState(0);
   const [offset, setOffset] = useState(0);
   const [frase, setFrase] = useState("");
   const [orderBy, setOrderBy] = useState("name");
+  const [onlyFavorites, setOnlyFavorites] = useState(false);
+
+  const { addOrRemoveFavorite, isFavorite, favorites } = useFavorites();
 
   const history = useHistory();
 
@@ -73,11 +103,11 @@ export const List = () => {
             fontWeight="700"
             color="black"
           >
-            Explore o universo
+            Explore the universe
           </Text>
           <Text textAlign="justify" fontSize="12px" color="gray">
-            Mergulhe no domínio deslumbrante de todos os personagens clássicos
-            que voce ama - e aqueles que voce descobrirá em breve!
+            Immerse yourself in the dazzling realm of all the classic characters
+            you love - and those you will soon discover!
           </Text>
         </Flex>
 
@@ -87,52 +117,95 @@ export const List = () => {
 
         <Flex justifyContent="space-between">
           <Text fontSize="12px" color="gray">
-            Econtrados {characters?.results?.length || 0} resultados
+            Found {characters?.results?.length || 0} results
           </Text>
           <Flex alignItems="center">
-            <Flex
-              mr="10px"
-              alignItems="center"
-              onClick={() => setOrderBy(!orderBy)}
-            >
+            <Flex mr="20px" alignItems="center">
               <Image src={hero} width="20px" height="20px" />
-              <Text ml="5px" fontSize="10px" color="red">
-                {orderBy ? "Ordenar por nome Z / A" : "Ordenar por nome A / Z"}
+              <Text mx="5px" fontSize="10px" color="red">
+                Order by name A / Z
               </Text>
+              <Image
+                onClick={() => setOrderBy(!orderBy)}
+                src={orderBy ? toggleOn : toggleOff}
+                width="30px"
+                height="20px"
+              />
             </Flex>
 
-            <Image src={heart} width="20px" height="20px" />
-            <Text ml="5px" fontSize="10px" color="red">
-              Somente favoritos
-            </Text>
+            <Flex
+              alignItems="center"
+              onClick={() => setOnlyFavorites(!onlyFavorites)}
+            >
+              <Image
+                src={onlyFavorites ? heart : heartFullfilled}
+                width="20px"
+                height="20px"
+              />
+              <Text ml="5px" fontSize="10px" color="red">
+                Only favorites
+              </Text>
+            </Flex>
           </Flex>
         </Flex>
 
         <Flex>
-          {isLoading ? (
-            <Box>Loading...</Box>
+          {isLoading || isFetching ? (
+            <Flex
+              minHeight="300px"
+              flex={1}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Loading />
+            </Flex>
           ) : isError ? (
             <Box>Error: {error.message}</Box>
           ) : (
             <Flex justifyContent="center" flex={1} flexWrap="wrap">
-              {characters.results.map((hero, i) => (
-                <HeroCard
-                  onClick={() => history.push(`characters/${hero.id}`)}
-                  hero={hero}
-                />
-              ))}
+              {onlyFavorites
+                ? characters.results.map((hero, i) => {
+                    return (
+                      <HeroCard
+                        onClick={() => history.push(`characters/${hero.id}`)}
+                        hero={hero}
+                        onClickFavorite={addOrRemoveFavorite}
+                        favorite={isFavorite(hero)}
+                      />
+                    );
+                  })
+                : favorites.map((hero, i) => {
+                    return (
+                      <HeroCard
+                        onClick={() => history.push(`characters/${hero.id}`)}
+                        hero={hero}
+                        onClickFavorite={addOrRemoveFavorite}
+                        favorite={isFavorite(hero)}
+                      />
+                    );
+                  })}
             </Flex>
           )}
         </Flex>
-        <Flex justifyContent="center">
-          <Text>Current Page: {page + 1}</Text>
-          <button
+        <Flex alignItems="center" justifyContent="center">
+          <Button
+            variant="contained"
             onClick={() => setPage((old) => Math.max(old - 1, 0))}
             disabled={page === 0}
           >
             Previous Page
-          </button>
-          <button
+          </Button>
+          {page > 0 && (
+            <Button variant="outlined" onClick={() => setPage(page - 1)}>
+              {page}
+            </Button>
+          )}
+          <Button variant="contained">{page + 1}</Button>
+          <Button variant="outlined" onClick={() => setPage(page + 1)}>
+            {page + 2}
+          </Button>
+          <Button
+            variant="contained"
             onClick={() => {
               if (!isPreviousData) {
                 setPage((old) => old + 1);
@@ -141,8 +214,7 @@ export const List = () => {
             disabled={isPreviousData}
           >
             Next Page
-          </button>
-          {isFetching ? <Text> Loading...</Text> : null}
+          </Button>
         </Flex>
       </Box>
       <Box bg="red" height="35px"></Box>
