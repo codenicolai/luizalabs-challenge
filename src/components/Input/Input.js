@@ -32,7 +32,15 @@ const StyledInput = styled.input`
   outline: 0;
 `;
 
-export const Input = ({ onClick, onChange, full, variant, icon, ...props }) => {
+export const Input = ({
+  onClick,
+  onChange,
+  full,
+  variant,
+  icon,
+  placeholder,
+  ...props
+}) => {
   return (
     <Flex onClick={onClick} width="100%" alignItems="center">
       {icon && (
@@ -47,7 +55,7 @@ export const Input = ({ onClick, onChange, full, variant, icon, ...props }) => {
       <StyledInput
         full={full}
         variant={variant}
-        placeholder="Procure por heróis"
+        placeholder={placeholder}
         onChange={onChange}
         {...props}
       ></StyledInput>
