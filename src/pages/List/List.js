@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+import styled from "styled-components";
+
 import { useQuery } from "react-query";
+import { useHistory } from "react-router-dom";
+
+import { getCharacters } from "api/characters";
+
+import useFavorites from "hooks/useFavorites";
 
 import Box from "components/Box";
 import Flex from "components/Flex";
@@ -8,6 +15,7 @@ import Text from "components/Text";
 import Image from "components/Image";
 import Input from "components/Input";
 import HeroCard from "components/HeroCard";
+import Loading from "components/Loading";
 
 import logo from "assets/logo/Group.png";
 import heart from "assets/icones/heart/heart.svg";
@@ -16,12 +24,6 @@ import hero from "assets/icones/heroi/hero.svg";
 import search from "assets/busca/Lupa/search.svg";
 import toggleOn from "assets/toggle/toggleOn.svg";
 import toggleOff from "assets/toggle/toggleOff.svg";
-
-import { getCharacters } from "api/characters";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import Loading from "components/Loading";
-import useFavorites from "hooks/useFavorites";
 
 const Button = styled.button`
   margin-left: 2px;

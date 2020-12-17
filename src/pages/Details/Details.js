@@ -159,7 +159,7 @@ export const Details = () => {
               </Flex>
               <Flex
                 mb={{ _: "20px", tablet: 0 }}
-                justifyContent="center"
+                justifyContent={{ _: "center", tablet: "flex-end" }}
                 flex={2}
               >
                 <Image
