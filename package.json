@@ -1,6 +1,6 @@
 {
-  "homepage": "http://codenicolai.github.io/luizalabs-challenge",
   "name": "luizalabs-challenge",
+  "homepage": "http://codenicolai.github.io/luizalabs-challenge",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
