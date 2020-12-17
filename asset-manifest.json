@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/luizalabs-challenge/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/luizalabs-challenge/static/js/main.aa8d1198.chunk.js",
+    "main.js.map": "/luizalabs-challenge/static/js/main.aa8d1198.chunk.js.map",
+    "runtime-main.js": "/luizalabs-challenge/static/js/runtime-main.be089a0e.js",
+    "runtime-main.js.map": "/luizalabs-challenge/static/js/runtime-main.be089a0e.js.map",
+    "static/js/2.a7d0eb5d.chunk.js": "/luizalabs-challenge/static/js/2.a7d0eb5d.chunk.js",
+    "static/js/2.a7d0eb5d.chunk.js.map": "/luizalabs-challenge/static/js/2.a7d0eb5d.chunk.js.map",
+    "static/js/3.f034a8af.chunk.js": "/luizalabs-challenge/static/js/3.f034a8af.chunk.js",
+    "static/js/3.f034a8af.chunk.js.map": "/luizalabs-challenge/static/js/3.f034a8af.chunk.js.map",
+    "index.html": "/luizalabs-challenge/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/luizalabs-challenge/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.a7d0eb5d.chunk.js.LICENSE.txt": "/luizalabs-challenge/static/js/2.a7d0eb5d.chunk.js.LICENSE.txt",
+    "static/media/Group.77d3c46d.png": "/luizalabs-challenge/static/media/Group.77d3c46d.png",
+    "static/media/book.9c1570ae.svg": "/luizalabs-challenge/static/media/book.9c1570ae.svg",
+    "static/media/heart-fullfilled.4d193319.svg": "/luizalabs-challenge/static/media/heart-fullfilled.4d193319.svg",
+    "static/media/heart.05658f64.svg": "/luizalabs-challenge/static/media/heart.05658f64.svg",
+    "static/media/hero.d4202a4c.svg": "/luizalabs-challenge/static/media/hero.d4202a4c.svg",
+    "static/media/review.d3504c92.svg": "/luizalabs-challenge/static/media/review.d3504c92.svg",
+    "static/media/search.de3d7fd3.svg": "/luizalabs-challenge/static/media/search.de3d7fd3.svg",
+    "static/media/toggleOff.70c48bcf.svg": "/luizalabs-challenge/static/media/toggleOff.70c48bcf.svg",
+    "static/media/toggleOn.5f3bee51.svg": "/luizalabs-challenge/static/media/toggleOn.5f3bee51.svg",
+    "static/media/video.a7cec4e7.svg": "/luizalabs-challenge/static/media/video.a7cec4e7.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.be089a0e.js",
+    "static/js/2.a7d0eb5d.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.aa8d1198.chunk.js"
+  ]
+}
