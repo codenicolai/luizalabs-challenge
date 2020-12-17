@@ -10,19 +10,23 @@ import heart from "assets/icones/heart/heart.svg";
 import book from "assets/icones/book/book.svg";
 import video from "assets/icones/video/video.svg";
 import review from "assets/review/review.svg";
+import heartFullfilled from "assets/icones/heart/heart-fullfilled.svg";
 
 import Image from "components/Image";
 import Flex from "components/Flex";
 import Input from "components/Input";
 import { useQuery } from "react-query";
-import { getCharacterById } from "api/characters";
+import { getCharacterById, getComicsByCharacterId } from "api/characters";
 import Text from "components/Text";
 import moment from "moment";
 import Loading from "components/Loading";
+import useFavorites from "hooks/useFavorites";
 
 export const Details = () => {
   const { id } = useParams();
   const history = useHistory();
+
+  const { isFavorite, addOrRemoveFavorite } = useFavorites();
 
   const {
     data: character,
@@ -30,6 +34,13 @@ export const Details = () => {
     isError,
     error,
   } = useQuery("characterById", () => getCharacterById({ id }));
+
+  const {
+    data: comics,
+    isLoading: comicsLoading,
+  } = useQuery("comicsByCharacterId", () => getComicsByCharacterId({ id }));
+
+  console.log(comics);
 
   return (
     <>
@@ -40,7 +51,7 @@ export const Details = () => {
         bg="green"
         minHeight="calc(100vh - 135px)"
       >
-        {isLoading ? (
+        {isLoading || comicsLoading ? (
           <Flex
             minHeight="calc(100vh - 135px)"
             flex={1}
@@ -52,24 +63,31 @@ export const Details = () => {
         ) : isError ? (
           <Box>Error: {error.message}</Box>
         ) : (
-          <Flex px={{ _: "10px", mobile: "40px" }} flexDirection="column">
-            <Flex flex={1}>
-              <Image mr="100px" height="50px" width="150px" img={logo} />
-              <Input
-                onClick={() => history.push("/characters")}
-                icon={search}
-                full
-                variant="outlined"
-              ></Input>
+          <Flex px={{ _: 0, mobile: "40px" }} flexDirection="column">
+            <Flex alignItems="center" flex={1}>
+              <Image
+                mr={{ _: "30px", tablet: "100px" }}
+                height="50px"
+                width="150px"
+                img={logo}
+              />
+              <Box width="100%" maxWidth="600px">
+                <Input
+                  placeholder="Search for your heroes..."
+                  onClick={() => history.push("/characters")}
+                  icon={search}
+                  full
+                  variant="outlined"
+                ></Input>
+              </Box>
             </Flex>
             <Flex
-              alignItems="center"
               flexDirection={{ _: "column-reverse", tablet: "row" }}
-              px="20px"
+              px={{ _: 0, mobile: "20px" }}
               mt="50px"
             >
               <Flex
-                width={{ _: "400px", tablet: "fit-content" }}
+                mx={{ _: "10px", mobile: "0px" }}
                 flexDirection="column"
                 flex={1}
               >
@@ -77,7 +95,12 @@ export const Details = () => {
                   <Text color="black" fontSize="24px" fontWeight="600">
                     {character?.name}
                   </Text>
-                  <Image src={heart} width="20px" height="20px" />
+                  <Image
+                    src={isFavorite(character) ? heartFullfilled : heart}
+                    width="20px"
+                    height="20px"
+                    onClick={() => addOrRemoveFavorite(character)}
+                  />
                 </Flex>
                 <Text mt="20px" fontSize="12px" color="gray">
                   {character?.description || "-"}
@@ -131,17 +154,17 @@ export const Details = () => {
               >
                 <Image
                   src={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
-                  width="400px"
+                  width={{ _: "100%", base: "400px" }}
                   height="400px"
                 />
               </Flex>
             </Flex>
-            <Flex flexDirection="column">
+            <Flex mx={{ _: "10px", mobile: "0" }} flexDirection="column">
               <Text mt="40px" fontSize="16px" fontWeight="600">
                 Last releases
               </Text>
               <Flex justifyContent="center" flex={1} flexWrap="wrap">
-                {character?.comics?.items?.map((comic, i) => {
+                {comics?.map((comic, i) => {
                   return (
                     <Flex
                       mt="40px"
@@ -151,12 +174,12 @@ export const Details = () => {
                       mx="10px"
                     >
                       <Image
-                        src={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
+                        src={`${comic?.images?.[0]?.path}.${comic?.images?.[0]?.extension}`}
                         width="120px"
                         height="190px"
                       />
                       <Text mt="10px" fontSize="10px" fontWeight="600">
-                        {comic?.name}
+                        {comic?.title}
                       </Text>
                     </Flex>
                   );

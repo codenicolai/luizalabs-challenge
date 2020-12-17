@@ -35,11 +35,12 @@ const Button = styled.button`
     props.variant === "contained"
       ? props.theme.colors.white
       : props.theme.colors.red};
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-left: 7px;
+  padding-right: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border: none;
+  font-size: 10px;
   border-radius: 100px;
   cursor: pointer;
 `;
@@ -85,13 +86,16 @@ export const List = () => {
 
   return (
     <>
-      <Box
+      <Flex
         pt="20px"
         pb="80px"
         px="10px"
         maxWidth="100vw"
         minHeight="calc(100vh - 135px)"
         bg="white"
+        justifyContent="center"
+        flexDirection="column"
+        alignItems="center"
       >
         <Flex alignItems="center" flexDirection="column">
           <Image height="60px" width="180px" img={logo} />
@@ -111,11 +115,26 @@ export const List = () => {
           </Text>
         </Flex>
 
-        <Flex my="20px" justifyContent="center">
-          <Input icon={search} onChange={(e) => setFrase(e.target.value)} />
+        <Flex
+          width="100%"
+          mt="20px"
+          mb={{ _: "40px", tablet: "80px" }}
+          justifyContent="center"
+        >
+          <Flex width="100%" maxWidth="600px">
+            <Input
+              placeholder="Search for your heroes..."
+              full
+              icon={search}
+              onChange={(e) => setFrase(e.target.value)}
+            />
+          </Flex>
         </Flex>
 
-        <Flex justifyContent="space-between">
+        <Flex
+          width={{ _: "100%", tablet: "80%", hd: "70%" }}
+          justifyContent="space-between"
+        >
           <Text fontSize="12px" color="gray">
             Found {characters?.results?.length || 0} results
           </Text>
@@ -138,7 +157,7 @@ export const List = () => {
               onClick={() => setOnlyFavorites(!onlyFavorites)}
             >
               <Image
-                src={onlyFavorites ? heart : heartFullfilled}
+                src={onlyFavorites ? heartFullfilled : heart}
                 width="20px"
                 height="20px"
               />
@@ -149,7 +168,7 @@ export const List = () => {
           </Flex>
         </Flex>
 
-        <Flex>
+        <Flex width={{ _: "100%", tablet: "80%", hd: "70%" }}>
           {isLoading || isFetching ? (
             <Flex
               minHeight="300px"
@@ -163,7 +182,7 @@ export const List = () => {
             <Box>Error: {error.message}</Box>
           ) : (
             <Flex justifyContent="center" flex={1} flexWrap="wrap">
-              {onlyFavorites
+              {!onlyFavorites
                 ? characters.results.map((hero, i) => {
                     return (
                       <HeroCard
@@ -216,7 +235,7 @@ export const List = () => {
             Next Page
           </Button>
         </Flex>
-      </Box>
+      </Flex>
       <Box bg="red" height="35px"></Box>
     </>
   );
