@@ -6,8 +6,14 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import Text from "components/Text";
 import Image from "components/Image";
+import Input from "components/Input";
 
-import logo from "assets/logo.png";
+import logo from "assets/logo/Group.png";
+import heart from "assets/icones/heart/heart.svg";
+import search from "assets/busca/Lupa/search.svg";
+
+import heartFullfilled from "assets/icones/heart/heart-fullfilled.svg";
+
 import { getCharacters } from "api/characters";
 
 export const List = () => {
@@ -63,11 +69,27 @@ export const List = () => {
           voce ama - e aqueles que voce descobrirá em breve!
         </Text>
       </Flex>
-      search:
-      <input onChange={(e) => setFrase(e.target.value)}></input>
-      <button onClick={() => setOrderBy(!orderBy)}>
-        {orderBy ? "orderByDesc" : "orderByAsc"}
-      </button>
+
+      <Flex my="20px" justifyContent="center">
+        <Input icon={search} onChange={(e) => setFrase(e.target.value)} />
+      </Flex>
+
+      <Flex justifyContent="space-between">
+        <Text fontSize="12px" color="gray">
+          Econtrados {characters?.results?.length || 0} resultados
+        </Text>
+        <Flex>
+          <button onClick={() => setOrderBy(!orderBy)}>
+            {orderBy ? "orderByDesc" : "orderByAsc"}
+          </button>
+
+          <Image src={heart} width="20px" height="20px" />
+          <Text fontSize="12px" color="red">
+            Somente favoritos
+          </Text>
+        </Flex>
+      </Flex>
+
       <Flex>
         {isLoading ? (
           <Box>Loading...</Box>
@@ -76,20 +98,29 @@ export const List = () => {
         ) : (
           <Flex justifyContent="center" flex={1} flexWrap="wrap">
             {characters.results.map((project, i) => (
-              <Box mt="15px" mx="10px">
+              <Box onClick={() => {}} my="15px" mx="10px" width="200px">
                 {console.log(project)}
-                <Image
-                  height="200px"
-                  width="200px"
-                  img={`${project.thumbnail.path}.${project.thumbnail.extension}`}
-                />
-                <p key={project.id}>{project.name}</p>
+                <Flex flex={1}>
+                  <Image
+                    height="200px"
+                    width="200px"
+                    img={`${project.thumbnail.path}.${project.thumbnail.extension}`}
+                  />
+                </Flex>
+                <Flex mt="15px" justifyContent="space-between">
+                  <Text key={project.id}>{project.name}</Text>
+                  <Image
+                    src={false ? heart : heartFullfilled}
+                    width="20px"
+                    height="20px"
+                  />
+                </Flex>
               </Box>
             ))}
           </Flex>
         )}
       </Flex>
-      <Flex>
+      <Flex justifyContent="center">
         <Text>Current Page: {page + 1}</Text>
         <button
           onClick={() => setPage((old) => Math.max(old - 1, 0))}
