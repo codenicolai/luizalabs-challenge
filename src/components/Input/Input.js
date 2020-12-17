@@ -32,9 +32,9 @@ const StyledInput = styled.input`
   outline: 0;
 `;
 
-export const Input = ({ onChange, full, variant, icon, ...props }) => {
+export const Input = ({ onClick, onChange, full, variant, icon, ...props }) => {
   return (
-    <Flex width="100%" alignItems="center">
+    <Flex onClick={onClick} width="100%" alignItems="center">
       {icon && (
         <Image
           ml="15px"
