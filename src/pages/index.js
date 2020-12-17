@@ -3,7 +3,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import List from "pages/List";
-import Edit from "pages/Edit";
+import Details from "pages/Details";
 
 const Pages = () => {
   return (
@@ -12,7 +12,7 @@ const Pages = () => {
         <List />
       </Route>
       <Route path="/characters/:id">
-        <Edit />
+        <Details />
       </Route>
       <Redirect to="/characters" />
     </Switch>
