@@ -1,8 +1,20 @@
 import React from "react";
 
-import { useHistory, useParams } from "react-router-dom";
+import moment from "moment";
 
+import { useHistory, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+
+import { getCharacterById, getComicsByCharacterId } from "api/characters";
+
+import useFavorites from "hooks/useFavorites";
+
+import Image from "components/Image";
+import Flex from "components/Flex";
 import Box from "components/Box";
+import Input from "components/Input";
+import Text from "components/Text";
+import Loading from "components/Loading";
 
 import logo from "assets/logo/Group.png";
 import search from "assets/busca/Lupa/search.svg";
@@ -11,16 +23,6 @@ import book from "assets/icones/book/book.svg";
 import video from "assets/icones/video/video.svg";
 import review from "assets/review/review.svg";
 import heartFullfilled from "assets/icones/heart/heart-fullfilled.svg";
-
-import Image from "components/Image";
-import Flex from "components/Flex";
-import Input from "components/Input";
-import { useQuery } from "react-query";
-import { getCharacterById, getComicsByCharacterId } from "api/characters";
-import Text from "components/Text";
-import moment from "moment";
-import Loading from "components/Loading";
-import useFavorites from "hooks/useFavorites";
 
 export const Details = () => {
   const { id } = useParams();
@@ -39,8 +41,6 @@ export const Details = () => {
     data: comics,
     isLoading: comicsLoading,
   } = useQuery("comicsByCharacterId", () => getComicsByCharacterId({ id }));
-
-  console.log(comics);
 
   return (
     <>
@@ -174,7 +174,13 @@ export const Details = () => {
                 Last releases
               </Text>
               <Flex justifyContent="center" flex={1} flexWrap="wrap">
-                {comics?.map((comic, i) => {
+                {(
+                  comics
+                    ?.sort((a, b) =>
+                      moment(a.dates[0].date).isAfter(b.dates[0].date) ? a : b
+                    )
+                    .filter((item, i) => i < 10) || []
+                )?.map((comic, i) => {
                   return (
                     <Flex
                       mt="40px"
