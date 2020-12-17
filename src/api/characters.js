@@ -17,3 +17,10 @@ export const getCharacterById = ({ id }) =>
       `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=${process.env.REACT_APP_API_KEY}`
     )
     .then((data) => data.data.data.results[0]);
+
+export const getComicsByCharacterId = ({ id }) =>
+  axios
+    .get(
+      `https://gateway.marvel.com:443/v1/public/characters/${id}/comics?apikey=${process.env.REACT_APP_API_KEY}`
+    )
+    .then((data) => data.data.data.results);
