@@ -206,35 +206,37 @@ export const List = () => {
             </Flex>
           )}
         </Flex>
-        <Flex alignItems="center" justifyContent="center">
-          <Button
-            variant="contained"
-            onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={page === 0}
-          >
-            Previous Page
-          </Button>
-          {page > 0 && (
-            <Button variant="outlined" onClick={() => setPage(page - 1)}>
-              {page}
+        {!onlyFavorites && (
+          <Flex alignItems="center" justifyContent="center">
+            <Button
+              variant="contained"
+              onClick={() => setPage((old) => Math.max(old - 1, 0))}
+              disabled={page === 0}
+            >
+              Previous Page
             </Button>
-          )}
-          <Button variant="contained">{page + 1}</Button>
-          <Button variant="outlined" onClick={() => setPage(page + 1)}>
-            {page + 2}
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => {
-              if (!isPreviousData) {
-                setPage((old) => old + 1);
-              }
-            }}
-            disabled={isPreviousData}
-          >
-            Next Page
-          </Button>
-        </Flex>
+            {page > 0 && (
+              <Button variant="outlined" onClick={() => setPage(page - 1)}>
+                {page}
+              </Button>
+            )}
+            <Button variant="contained">{page + 1}</Button>
+            <Button variant="outlined" onClick={() => setPage(page + 1)}>
+              {page + 2}
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (!isPreviousData) {
+                  setPage((old) => old + 1);
+                }
+              }}
+              disabled={isPreviousData}
+            >
+              Next Page
+            </Button>
+          </Flex>
+        )}
       </Flex>
       <Box bg="red" height="35px"></Box>
     </>

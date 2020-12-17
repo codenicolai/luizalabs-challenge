@@ -107,36 +107,46 @@ export const Details = () => {
                 </Text>
                 <Flex mt="15px">
                   <Flex mr="40px" flexDirection="column">
-                    <Text fontSize="10px" fontWeight="bold">
+                    <Text color="black" fontSize="10px" fontWeight="bold">
                       Comics
                     </Text>
                     <Flex mt="5px" alignItems="center">
                       <Image src={book} width="20px" height="20px" />
-                      <Text fontSize="14px" ml="10px">
+                      <Text color="black" fontSize="14px" ml="10px">
                         {character?.comics?.available || 0}
                       </Text>
                     </Flex>
                   </Flex>
                   <Flex mr="20px" flexDirection="column">
-                    <Text fontSize="10px" fontWeight="bold">
+                    <Text color="black" fontSize="10px" fontWeight="bold">
                       Series
                     </Text>
                     <Flex mt="5px" alignItems="center">
                       <Image src={video} width="20px" height="20px" />
-                      <Text fontSize="14px" ml="10px">
+                      <Text color="black" fontSize="14px" ml="10px">
                         {character?.series?.available || 0}
                       </Text>
                     </Flex>
                   </Flex>
                 </Flex>
                 <Flex alignItems="center" mt="20px">
-                  <Text mr="5px" fontSize="12px" fontWeight="bold">
+                  <Text
+                    color="black"
+                    mr="5px"
+                    fontSize="12px"
+                    fontWeight="bold"
+                  >
                     Rating:
                   </Text>
                   <Image src={review} height="12px" width="60px" />
                 </Flex>
                 <Flex alignItems="center" mt="20px">
-                  <Text mr="5px" fontSize="12px" fontWeight="bold">
+                  <Text
+                    color="black"
+                    mr="5px"
+                    fontSize="12px"
+                    fontWeight="bold"
+                  >
                     Last comic:
                   </Text>
 
@@ -159,8 +169,8 @@ export const Details = () => {
                 />
               </Flex>
             </Flex>
-            <Flex mx={{ _: "10px", mobile: "0" }} flexDirection="column">
-              <Text mt="40px" fontSize="16px" fontWeight="600">
+            <Flex mx={{ _: "10px", mobile: "20px" }} flexDirection="column">
+              <Text color="black" mt="40px" fontSize="16px" fontWeight="600">
                 Last releases
               </Text>
               <Flex justifyContent="center" flex={1} flexWrap="wrap">
@@ -178,7 +188,12 @@ export const Details = () => {
                         width="120px"
                         height="190px"
                       />
-                      <Text mt="10px" fontSize="10px" fontWeight="600">
+                      <Text
+                        color="black"
+                        mt="10px"
+                        fontSize="10px"
+                        fontWeight="600"
+                      >
                         {comic?.title}
                       </Text>
                     </Flex>

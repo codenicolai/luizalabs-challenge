@@ -26,7 +26,9 @@ export const HeroCard = ({
         />
       </Flex>
       <Flex mt="15px" justifyContent="space-between">
-        <Text key={hero.id}>{hero.name}</Text>
+        <Text color="black" fontWeight="600" key={hero.id}>
+          {hero.name}
+        </Text>
         <Image
           onClick={() => onClickFavorite(hero)}
           src={favorite ? heartFullfilled : heart}
